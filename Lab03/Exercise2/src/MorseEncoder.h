@@ -15,6 +15,7 @@ class MorseEncoder {
 public:
 	MorseEncoder(DigitalIoPin*, DigitalIoPin*);
 	virtual ~MorseEncoder();
+	void setTimeUnit(int);
 	void morse_out(const char *);
 	void morse_out(std::string str);
 
@@ -22,6 +23,8 @@ private:
 	DigitalIoPin* Led;
 	DigitalIoPin* Decoder;
 	void morseSignal(int)const;
+	int timeUnit = 100;
+
 	struct MorseCode {
 		char symbol;
 		unsigned char code[7];

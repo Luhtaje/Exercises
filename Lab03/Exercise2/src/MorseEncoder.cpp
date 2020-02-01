@@ -67,7 +67,7 @@ void MorseEncoder::morse_out(const char* str){
 
 		if(str[index_Char]== ' '){
 			//No need for inter-element delay when space is inside.
-			Sleep(2);
+			Sleep(2*timeUnit);
 
 		}else if(isalnum(str[index_Char]) && (str[index_Char] < 128) ){
 			//Loop for going through the array of morse patterns for specific characters.
@@ -79,7 +79,7 @@ void MorseEncoder::morse_out(const char* str){
 					for(int k=0;ITU_morse[i].code[k]!=0;k++){
 						morseSignal(ITU_morse[i].code[k]);
 						//Inter-Element gap
-						Sleep(1);
+						Sleep(1*timeUnit);
 					}
 
 				}
@@ -91,12 +91,12 @@ void MorseEncoder::morse_out(const char* str){
 			for(int k=0;ITU_morse[CHAR_X].code[k]!=0;k++){
 				morseSignal(ITU_morse[CHAR_X].code[k]);
 				//Inter-Element gap
-				Sleep(1);
+				Sleep(1*timeUnit);
 			}
 		}
 
 	//Letter gap
-	Sleep(2);
+	Sleep(2*timeUnit);
 	}
 
 }
@@ -107,14 +107,14 @@ void MorseEncoder::morseSignal(int pattern)const{
 	if(pattern==1){
 		Led->write(1);
 		Decoder->write(0);
-		Sleep(1);
+		Sleep(1*timeUnit);
 		Led->write(0);
 		Decoder->write(1);
 
 	}else if(pattern ==3){
 		Led->write(1);
 		Decoder->write(0);
-		Sleep(3);
+		Sleep(3*timeUnit);
 		Led->write(0);
 		Decoder->write(1);
 	}

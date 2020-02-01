@@ -29,17 +29,17 @@
 
 // TODO: insert other definitions and declarations here
 #define TICKRATE_HZ1 (1000)
-#define TIME_UNIT (100)
 #define C_LIMIT (80)
 enum {wmp,send,set};
 
 
 static volatile std::atomic_int counter;
 
-void Sleep(int ms) {  counter = ms * TIME_UNIT;  while(counter > 0) {   __WFI();  } }
+void Sleep(int ms) {  counter = ms;  while(counter > 0) {   __WFI();  } }
 
 
-void handleState(int state, LpcUart& uart){
+
+void handleState(int state, LpcUart& uart,MorseEncoder& Encoder){
 	int i=0;
 	char c;
 	char string[C_LIMIT]= {};
@@ -52,7 +52,7 @@ void handleState(int state, LpcUart& uart){
 	}
 	uart.write("\r\n");
 	string[i-1]= '\0';
-
+	//state 0 = wmp, state 1= sen , state 2=set.
 	if(state==0){
 
 	}else if(state ==1){
@@ -60,9 +60,10 @@ void handleState(int state, LpcUart& uart){
 	}else if(state==2){
 
 	}else{
-		uart.write("what");
+		uart.write("...How...how did you get here? Leave now! This is no place for your kind... Only death awaits here...");
 	}
 }
+
 
 
 
@@ -135,29 +136,30 @@ while(1){
 	//Initiates input state
 	if(uart.read(c) != 0){
 		line[0]=c;
+		uart.write(c);
 		i=1;
 		//The real input state
 		while(c != ' ' && i != 6){
-
 			if(uart.read(c) != 0){
+				uart.write(c);
 				line[i]=c;
 				++i;
 			}
 		}
 		//Terminate string so strcmp works
-		line[i] ='\0';
+		line[i-1] ='\0';
 
 		if(i==6){
 			uart.write("\r\nCharacter limit reached without a command. Commands are wpm, send, and set.\n\r");
 		}else if(!strcmp(line, "wmp")){
 			//Initiate words per minute state
-			handleState(wmp,uart);
+			handleState(wmp,uart,Encoder);
 		}else if(!strcmp(line,"send")){
 			//Initiate send state
-			handleState(send,uart);
+			handleState(send,uart,Encoder);
 		}else if(!strcmp(line,"set")){
 			// Initiate set state
-			handleState(set,uart);
+			handleState(set,uart,Encoder);
 		}else{
 			//Incorrect input
 			uart.write("\r\nInvalid input. Try again\r\n");
