@@ -120,3 +120,11 @@ void MorseEncoder::morseSignal(int pattern)const{
 	}
 }
 
+void MorseEncoder::setWPM(char * string){
+	int wpm = atoi(string);
+	timeUnit = (1000/wpm);
+}
+
+int MorseEncoder::getTimeUnit(){
+
+}

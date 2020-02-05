@@ -15,7 +15,8 @@ class MorseEncoder {
 public:
 	MorseEncoder(DigitalIoPin*, DigitalIoPin*);
 	virtual ~MorseEncoder();
-	void setTimeUnit(int);
+	void setWPM(char *);
+	int getTimeUnit();
 	void morse_out(const char *);
 	void morse_out(std::string str);
 

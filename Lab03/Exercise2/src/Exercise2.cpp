@@ -30,7 +30,7 @@
 // TODO: insert other definitions and declarations here
 #define TICKRATE_HZ1 (1000)
 #define C_LIMIT (80)
-enum {wmp,send,set};
+enum {wpm,send,set};
 
 
 static volatile std::atomic_int counter;
@@ -44,23 +44,58 @@ void handleState(int state, LpcUart& uart,MorseEncoder& Encoder){
 	char c;
 	char string[C_LIMIT]= {};
 
-	while(c != '\r' && i < C_LIMIT){
-		if(uart.read(c)!=0){
-			string[i]=c;
-			uart.write(c);
-		}
-	}
-	uart.write("\r\n");
-	string[i-1]= '\0';
-	//state 0 = wmp, state 1= sen , state 2=set.
+
 	if(state==0){
+		while(c != '\r' && i < C_LIMIT){
+			if(uart.read(c)!=0){
+				string[i]=c;
+				uart.write(c);
+				i++;
+			}
+		}
+		uart.write("\r\n");
+		string[i-1]= '\0';
 
-	}else if(state ==1){
+		char * ptr;
 
+		if(strtol(string, &ptr, 10)){
+			Encoder.setWPM(string);
+			uart.write("WPM set.\n\r");
+		}else{
+			uart.write("Incorrect input.After command enter a number.\n\r");
+		}
+	}else if(state==1){
+		while(c != '\r' && i < C_LIMIT){
+			if(uart.read(c)!=0){
+				string[i]=c;
+				uart.write(c);
+				i++;
+			}
+		}
+		uart.write("\r\n");
+		string[i-1]= '\0';
+		Encoder.morse_out(string);
 	}else if(state==2){
+		//i goes out of scope very soon so might as well use it.
+		// TimeUnit * SysTick
+		i = Encoder.getTimeUnit() * 100;
+		char integerstring[10];
 
-	}else{
-		uart.write("...How...how did you get here? Leave now! This is no place for your kind... Only death awaits here...");
+
+		//Construct printable string for dot length
+		char newstring[100] ="Dot length in ms: ";
+		sprintf(integerstring, "%d", i);
+		strcat(newstring, integerstring);
+		strcat(newstring, "\n\r");
+		uart.write(newstring);
+
+		//Construct printable string for WPM
+		i = 1000/i;
+		sprintf(integerstring, "%d", i);
+		strcpy(newstring, "WPM: ");
+		strcat(newstring, integerstring);
+		strcat(newstring, "\n\r");
+		uart.write(newstring);
 	}
 }
 
@@ -139,7 +174,7 @@ while(1){
 		uart.write(c);
 		i=1;
 		//The real input state
-		while(c != ' ' && i != 6){
+		while(c != ' ' && i != 6 && c!= '\r'){
 			if(uart.read(c) != 0){
 				uart.write(c);
 				line[i]=c;
@@ -151,9 +186,9 @@ while(1){
 
 		if(i==6){
 			uart.write("\r\nCharacter limit reached without a command. Commands are wpm, send, and set.\n\r");
-		}else if(!strcmp(line, "wmp")){
+		}else if(!strcmp(line, "wpm")){
 			//Initiate words per minute state
-			handleState(wmp,uart,Encoder);
+			handleState(wpm,uart,Encoder);
 		}else if(!strcmp(line,"send")){
 			//Initiate send state
 			handleState(send,uart,Encoder);
