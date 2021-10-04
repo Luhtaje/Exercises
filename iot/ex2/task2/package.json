@@ -1,0 +1,25 @@
+{
+  "name": "task_2",
+  "version": "1.0.0",
+  "description": "Exercise 2 Task 2",
+  "main": "index.js",
+  "scripts": {
+    "test": "task2",
+    "start" : "node index.js",
+    "dev" : "nodemon index.js"
+  },
+  
+  "keywords": [
+    "e2t2"
+  ],
+  "author": "jere",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "os-utils": "0.0.14"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}

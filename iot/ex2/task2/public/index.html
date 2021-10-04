@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel='stylesheet' type='text/css' href='/style.css'>
+	<meta charset="UTF-8">
+	<title>Memory usage</title>
+	<style>
+		html {
+			font-family: sans-serif;
+		}
+	</style>
+</head>
+<body>
+	<div class='mothercontainer'>
+		<div class='title'>
+			<p>Memory usage</p>
+		</div>
+		<p id='relative'>Starting...</p>
+		<p id='absolute'>Starting...</p>
+		<div class='buttons'>
+			<input type="button" id='b' onclick="setDataType(TypeEnum.BYTE)" value='Bytes'> 
+			<input type="button" id='kb' onclick="setDataType(TypeEnum.KILO)" value='kB'> 
+			<input type="button" id='mb' onclick="setDataType(TypeEnum.MEGA)" value='MB'> 
+			<input type="button" id='gb' onclick="setDataType(TypeEnum.GIGA)" value='GB'> 
+		</div>
+	</div>	
+	<script type="text/javascript" src="ajax.js"></script> 
+</body>
+</html>

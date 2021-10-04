@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="/css/homeStyle.css">
+	<meta charset="UTF-8">
+	<title>Welcome!</title>
+</head>
+
+<script>
+
+	function moveOn(name)
+	{
+		let destination = window.location.protocol + "//" + "localhost:3000/" + name;
+		location.assign(destination);
+	}
+
+</script>
+
+<body>
+<form id="nameForm">
+	<div class='centerContainer'>
+		<label for="name"> Enter your name please: </label>
+		<input type="text" name="name" id="nameID" required>
+		<input type="button" name="submit" id="submitButton" value="Submit"/>
+	</div>
+</form>
+
+<script>
+	document.getElementById("submitButton").addEventListener("click",function(){
+		moveOn(document.getElementById("nameID").value);
+	});
+</script>
+
+</body>
+</html>

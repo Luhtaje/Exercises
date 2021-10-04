@@ -1,0 +1,26 @@
+{
+  "name": "ex5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.5",
+    "assert": "^2.0.0",
+    "express": "^4.17.1",
+    "mqtt": "^4.2.8",
+    "multer": "^1.4.3",
+    "nodemon": "^2.0.13",
+    "path": "^0.12.7",
+    "sqlite3": "^5.0.2",
+    "uuid": "^7.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "setup": "node dbsetup.js",
+    "clear": "node dbclear.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

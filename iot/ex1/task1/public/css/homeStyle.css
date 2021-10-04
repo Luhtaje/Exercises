@@ -1,0 +1,38 @@
+body{
+    font-size: 24px;
+    font-family: helvetica;
+}
+
+
+input[type=text]{
+    width: 157px;
+    height: 26px;
+    margin-left: 0.5ch;
+    margin-right: 0.5ch;
+    border-radius: 4px;
+    background-color: pink;
+    transition: background-color 0.5s ease-in-out, width 0.5s ease-in-out;
+}
+
+
+input[type=button]{
+    padding-left: 3ch;
+    padding-right: 3ch;
+    margin-top: 4px;
+    font-size: 18px;
+    font-family: helvetica;
+}
+
+input[type=text]:focus{
+    width: 322px;
+}
+
+input[type=text]:valid{
+    background-color: white;
+}
+
+.centerContainer{
+    display:flex;
+    justify-content: center;
+    align-items: flex-start;
+}
