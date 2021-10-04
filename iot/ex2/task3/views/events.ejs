@@ -44,6 +44,7 @@
             const inputName = document.getElementById('name').value;
             const inputDate = document.getElementById('date').value;
             const inputTime = document.getElementById('time').value;
+            //Post that data
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {'Content-type' : 'application/x-www-form-urlencoded; charset=UTF-8'},
@@ -53,7 +54,8 @@
                     time : inputTime,
                 })
             })
-        
+            //Reload page
+            location.assign('http://localhost:3000/');
         }
 
         async function clearCookies(){
