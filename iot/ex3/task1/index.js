@@ -2,18 +2,17 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
-const fs = require('fs');
-const util = require('util');
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
-const { ClientRequest } = require('http');
+//I dont know where this object notation came from but it works so ill let it be
 const { ObjectId } = require('bson');
 const { response } = require('express');
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 
+//Apparently by default mongodb looks for data/db folder in root of C drive, so make sure to have that
+//For windows systems that is, dont know about macOS
 const url= 'mongodb://localhost:27017';
 const dbName = 'carDealership';
 const client = new MongoClient(url);
