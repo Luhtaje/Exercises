@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <meta charset="UTF-8">
+    <title>Die</title>
+</head>
+
+<script>
+    function moveOn()
+    {
+        let imageNumber = Math.floor(Math.random() * 6 + 1);
+
+        //I have a feeling this is probably not the best practice.
+        let destination = window.location.protocol + "//" + "localhost:3000/image?number=" + imageNumber;
+        window.location.assign(destination);
+    };
+    
+</script>
+
+<body>
+    <div class='flexContainer'>
+           <label for='number'><%= text %></label>
+           <input type='button' name='number' id='submitButton' value='ROLL!'>
+      <img src='\images\<%= number %>.png' />
+    </div>
+<script>
+    document.getElementById('submitButton').addEventListener("click",function(){
+        moveOn();
+    });
+</script>
+    
+
+</body>
+</html>
