@@ -5,3 +5,8 @@ npm run dbsetup            	//Creates the table for database
 npm run start			//Runs program.
 
 Then from a browser enter "localhost:3000" as the url.
+
+Theres an interesing "bug". The program is supposed to update temperature each second, which it does, 
+but the simulator does not send data with 1000 ms intervals.The client.on('message') event is triggered
+somewhere between once every 1-2 seconds, which causes the program to display same information for atleast 
+2 cycles.

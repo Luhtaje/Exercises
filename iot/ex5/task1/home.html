@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    
 </head>
 
 <body>
@@ -25,17 +24,18 @@
     <script>
         let timeout = null;
         let interval = null;
+
+        //Callback for changing the temperature input
         onChange = () => {
-                clearTimeout(timeout);
-                clearInterval(interval);
+            clearTimeout(timeout);
+            clearInterval(interval);
             const inputTemp = Number(document.getElementById('temperature').value);
-            console.log(inputTemp);
             updateSVG(inputTemp);
             
+            //After 10 seconds update the svg with random values.
             timeout = setTimeout(()=>{
                 interval = setInterval(()=>{
                     const randTemp = Math.floor(Math.random() * 60 -30);
-                    console.log(`Random temp value: ${randTemp} \r\n`);
                     updateSVG(randTemp);
                 },1000)
             },10000);
@@ -72,7 +72,6 @@
             }else{
                 temp = inputTemp;
             }
-            console.log(`Inside the func: ${temp} \r\n`);
             const percentage = (temp+30)/60;
             return percentage;
         };
