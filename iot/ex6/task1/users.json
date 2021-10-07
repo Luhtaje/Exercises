@@ -1,0 +1,11 @@
+{
+    "users" :[{
+        "name":"john",
+        "age":"19",
+        "jslevel":"master"
+    },{
+        "name":"mike",
+        "age": "55",
+        "jslevel":"noob"
+    }]
+}
